@@ -1,0 +1,13 @@
+# Secrets — never commit credentials
+secrets/*.txt
+
+# Environment overrides
+srcs/.env.local
+
+# OS / editor
+.DS_Store
+*.swp
+*~
+
+# Docker
+*.log

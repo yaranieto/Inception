@@ -1,0 +1,20 @@
+# ************************************************************************** #
+#                                                                            #
+#                                                        :::      ::::::::   #
+#   50-server.cnf                                        :+:      :+:    :+:   #
+#                                                    +:+ +:+         +:+     #
+#   By: ynieto-s <ynieto-s@student.42.fr>            +#+  +:+       +#+        #
+#                                                +#+#+#+#+#+   +#+           #
+#   Created: 2026/08/15 16:32:00 by ynieto-s           #+#    #+#             #
+#   Updated: 2026/08/15 16:38:00 by ynieto-s           ###   ########.fr       #
+#                                                                            #
+# ************************************************************************** #
+
+[mysqld]
+bind-address = 0.0.0.0
+port = 3306
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+[client]
+default-character-set = utf8mb4
