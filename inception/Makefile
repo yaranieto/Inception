@@ -6,7 +6,7 @@
 #   By: ynieto-s <ynieto-s@student.42.fr>            +#+  +:+       +#+      #
 #                                                +#+#+#+#+#+   +#+           #
 #   Created: 2026/08/15 16:32:00 by ynieto-s           #+#    #+#             #
-#   Updated: 2026/09/06 19:40:00 by ynieto-s           ###   ########.fr      #
+#   Updated: 2026/09/09 09:28:00 by ynieto-s           ###   ########.fr      #
 #                                                                            #
 # ************************************************************************** #
 
@@ -36,7 +36,10 @@ clean:
 	$(COMPOSE) down --rmi local --volumes --remove-orphans
 
 fclean: clean
-	@sudo rm -rf $(DATA_DIR)/mariadb/* $(DATA_DIR)/wordpress/*
+	@# Remove whole dirs so hidden files (e.g. .inception_initialized) are wiped too.
+	@# `rm -rf dir/*` leaves dotfiles and can break MariaDB on the next `make all`.
+	@sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
+	@mkdir -p $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
 
 re: fclean all
 

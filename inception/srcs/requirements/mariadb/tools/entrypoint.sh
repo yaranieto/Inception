@@ -28,9 +28,20 @@ DB_PASSWORD_SQL=$(sql_escape "${DB_PASSWORD}")
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
 
+# Marker alone is not enough: a partial wipe (e.g. `rm -rf datadir/*`) can leave
+# .inception_initialized while deleting the mysql system tables.
+needs_init=0
 if [ ! -f /var/lib/mysql/.inception_initialized ]; then
+    needs_init=1
+elif [ ! -d /var/lib/mysql/mysql ]; then
+    echo "Incomplete MariaDB datadir detected; re-initializing..."
+    needs_init=1
+fi
+
+if [ "${needs_init}" -eq 1 ]; then
     echo "Initializing MariaDB data directory..."
-    rm -rf /var/lib/mysql/*
+    # Remove everything including hidden marker/files.
+    find /var/lib/mysql -mindepth 1 -delete
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql --skip-test-db
 
     mysqld --user=mysql --datadir=/var/lib/mysql --bootstrap <<EOF
