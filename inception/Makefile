@@ -12,11 +12,10 @@
 
 NAME		= inception
 
-# Always bind volumes under the current user's home (evaluation VM login).
 DATA_DIR	= $(HOME)/data
 export DATA_PATH := $(DATA_DIR)
 
-COMPOSE		= docker compose -f srcs/docker-compose.yml
+COMPOSE		= docker-compose -f srcs/docker-compose.yml
 
 all: setup build up
 
