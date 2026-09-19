@@ -21,7 +21,7 @@ Containers use `restart: always`. Domain: `ynieto-s.42.fr`.
                                                    [MariaDB]
 ```
 
-WordPress has two users: administrator (`yara`, name must not contain `admin`)
+WordPress has two users: administrator (`ynieto-s`, name must not contain `admin`)
 and a second user (`editor`).
 
 ## Project structure
@@ -58,10 +58,10 @@ MariaDB (3306) and php-fpm (9000) stay internal.
 Two **named volumes** (`mariadb_data`, `wordpress_data`) with the `local` driver and
 `bind` options map to fixed host paths required by the subject:
 
-- `/home/<login>/data/mariadb` — database
-- `/home/<login>/data/wordpress` — WordPress files
+- `/home/ynieto-s/data/mariadb` — database
+- `/home/ynieto-s/data/wordpress` — WordPress files
 
-This keeps Docker named volumes while storing data under `/home/login/data` on the host.
+This keeps Docker named volumes while storing data under `/home/ynieto-s/data` on the host.
 
 ## Setup
 
@@ -74,17 +74,17 @@ This keeps Docker named volumes while storing data under `/home/login/data` on t
    ```
 3. From the project root: `make`
 4. Open `https://ynieto-s.42.fr` (accept the self-signed certificate warning).
-   Admin panel: `https://ynieto-s.42.fr/wp-admin` (user `yara`, password in `credentials.txt`).
+   Admin panel: `https://ynieto-s.42.fr/wp-admin` (user `ynieto-s`, password in `credentials.txt`).
 
 ## Makefile
 
 | Target | Description |
 |--------|-------------|
-| `make` / `all` | Create `~/data` dirs, build images, start the stack |
+| `make` / `all` | Create `/home/ynieto-s/data` dirs, build images, start the stack |
 | `make build` | Build Docker images via Compose |
 | `make up` / `down` | Start / stop containers |
 | `make clean` | Remove containers, local images and Compose volumes |
-| `make fclean` | `clean` + wipe host data under `~/data` (needs `sudo`) |
+| `make fclean` | `clean` + wipe host data under `/home/ynieto-s/data` (needs `sudo`) |
 | `make re` | `fclean` then `all` |
 | `make logs` / `ps` | Follow logs / show container status |
 

@@ -30,22 +30,22 @@ Makefile → `docker compose -f srcs/docker-compose.yml`.
    echo "your_wp_password"   > secrets/credentials.txt
    chmod 600 secrets/*.txt
    ```
-3. Check `srcs/.env`: `DOMAIN_NAME`, `MYSQL_*`, `WP_ADMIN_USER` (no `admin`),
-   `WP_USER2`, `DATA_PATH` (with `make`, overridden to `$(HOME)/data`).
-4. `make` (creates `~/data/...`, builds, starts).
+3. Check `srcs/.env`: `DOMAIN_NAME`, `MYSQL_*`, `WP_ADMIN_USER=ynieto-s` (no `admin`),
+   `WP_USER2`, `DATA_PATH=/home/ynieto-s/data` (overridden by Makefile on `make`).
+4. `make` (creates `/home/ynieto-s/data/...`, builds, starts).
 
 ## Volumes (subject)
 
 | Volume | Container | Host |
 |--------|-----------|------|
-| `mariadb_data` | `/var/lib/mysql` | `/home/<login>/data/mariadb` |
-| `wordpress_data` | `/var/www/html` | `/home/<login>/data/wordpress` |
+| `mariadb_data` | `/var/lib/mysql` | `/home/ynieto-s/data/mariadb` |
+| `wordpress_data` | `/var/www/html` | `/home/ynieto-s/data/wordpress` |
 
 NGINX mounts `wordpress_data` read-only.
 
 ```bash
 make clean     # containers, images, compose volumes
-make fclean    # + wipe ~/data (sudo)
+make fclean    # + wipe /home/ynieto-s/data (sudo)
 make re        # fclean + all
 ```
 
@@ -65,4 +65,4 @@ docker exec -w /var/www/html wordpress wp user list --allow-root
 ## Do not break (subject)
 
 Debian/Alpine Dockerfiles only · no ready-made service images · no `host`/`links` ·
-no passwords in Dockerfiles · only **443** · TLS 1.2/1.3 · data under `/home/<login>/data`.
+no passwords in Dockerfiles · only **443** · TLS 1.2/1.3 · data under `/home/ynieto-s/data`.

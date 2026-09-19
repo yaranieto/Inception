@@ -24,7 +24,7 @@ make up / down / ps / logs
 1. `/etc/hosts`: `<VM_IP>  ynieto-s.42.fr`
 2. Site: `https://ynieto-s.42.fr` (accept self-signed cert warning)
 3. Admin: `https://ynieto-s.42.fr/wp-admin`
-   - user `yara` (`.env` → `WP_ADMIN_USER`, must not contain `admin`)
+   - user `ynieto-s` (`.env` → `WP_ADMIN_USER`, must not contain `admin`)
    - password in `secrets/credentials.txt`
    - second user: `editor`
 
@@ -38,7 +38,7 @@ make up / down / ps / logs
 
 `.env` = domain, DB name, usernames (not passwords). Secrets are gitignored.
 
-Persistence: `~/data/wordpress` and `~/data/mariadb` (survive `down`/`up`).
+Persistence: `/home/ynieto-s/data/wordpress` and `/home/ynieto-s/data/mariadb` (survive `down`/`up`).
 `make fclean` wipes them (needs `sudo`).
 
 Check: `make ps` and `curl -kI https://ynieto-s.42.fr`.
